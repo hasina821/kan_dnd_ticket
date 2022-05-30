@@ -1,4 +1,4 @@
-import React,{Fragment,useState,useRef} from "react"
+import React,{Fragment,useState} from "react"
 import {makeStyles} from "@mui/styles"
 import Trellocard from "./TrelloCard"
 import styled from "@emotion/styled"
@@ -8,6 +8,8 @@ import {Grid} from "@mui/material"
 import ClearIcon from '@mui/icons-material/Clear';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Droppable } from "react-beautiful-dnd"
+import {addCard} from "../features/projet"
+import { useDispatch } from "react-redux"
 
 const AddCardButton = styled(Button)({
      background: '#ebecf0',
@@ -70,9 +72,10 @@ const More = styled(MoreHorizIcon)({
 
 
 const Trellolist = ({listId,title,allowcreatecard,cards}) =>{
-     const style=useStyle()
-     const [showform,setShowform]=useState(false)
-     const [desc,setDesc]=useState("")
+     const dispatch = useDispatch()
+     const style = useStyle()
+     const [showform,setShowform]= useState(false)
+     const [desc,setDesc] = useState("")
 
      const Handleshowform = () =>{
           setShowform(!showform)
@@ -82,9 +85,10 @@ const Trellolist = ({listId,title,allowcreatecard,cards}) =>{
           setShowform(false)
      }
 
-     const Addcard = (description,tab) =>{
-          tab.push({id:4,description:description});
+     const Addcard = (description) =>{
+          dispatch(addCard({id:4,description:description}))
           setShowform(false)
+          
      } 
 
      return(
@@ -98,7 +102,7 @@ const Trellolist = ({listId,title,allowcreatecard,cards}) =>{
                          >
                               <h4>{title}</h4>
                               {cards.map((card,index)=>(
-                                   <Trellocard card={card} index={index} id={card.id}/>
+                                   <Trellocard key={card.id} card={card} index={index} id={card.id}/>
                               ))}
                               {allowcreatecard&&(
                                    <div key={title}>
@@ -119,17 +123,17 @@ const Trellolist = ({listId,title,allowcreatecard,cards}) =>{
                                         onChange={(e)=>setDesc(e.target.value)}
                                         />
                                         <Grid container>
-                                             <Grid xs={6}>
-                                                  <PushcardButton onClick = {(e)=>Addcard(desc,cards)}>
+                                             <Grid item xs={6}>
+                                                  <PushcardButton onClick = {(e)=>Addcard(desc)}>
                                                        ajouter une carte
                                                   </PushcardButton>
                                              </Grid>
-                                             <Grid xs={1} onClick = { Hadlecloseform}>
+                                             <Grid item xs={1} onClick = { Hadlecloseform}>
                                                   <ClearcardIcon />
                                              </Grid>  
-                                             <Grid xs={4}>
+                                             <Grid item xs={4}>
                                              </Grid> 
-                                             <Grid xs={1}>
+                                             <Grid item xs={1}>
                                                   <More/>
                                              </Grid>
                                         </Grid>

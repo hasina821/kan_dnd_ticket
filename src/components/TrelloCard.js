@@ -25,7 +25,7 @@ const Trellocard = ({card,id,index}) =>{
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     >
-                         <Card class={style.card}>
+                         <Card className={style.card}>
                               <CardContent>
                                    <Typography>{card.description}</Typography>
                               </CardContent>

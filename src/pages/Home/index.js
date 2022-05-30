@@ -3,16 +3,28 @@ import Trellolist from "../../components/TrelloList"
 import {Grid} from "@mui/material"
 import Navbar from "../../components/Navbar"
 import { DragDropContext } from "react-beautiful-dnd"
-import {useSelector} from "react-redux"
+import {useSelector,useDispatch} from "react-redux"
+import { moveCard } from "../../features/projet"
 
 
 export default function Home(){
+     const dispatch=useDispatch()
      const projet=useSelector(state=>state.projet);
      const onDragEnd = (result) =>{
-          const {destination,source,draggableId}=result;
-          if(!destination){
-               return;
-          }
+          const { destination, source, draggableId, type } = result;
+           
+          if (!destination) {
+                 return;
+               }
+           
+          dispatch(moveCard ({
+               droppableIdStart:source.droppableId,
+               droppableIdEnd:destination.droppableId,
+               droppableIndexEnd:source.index,
+               droppableIndexStart:destination.index,
+               draggableId,
+          }));
+          
      }
      return(
           <Fragment>
@@ -22,11 +34,11 @@ export default function Home(){
                          <h4>{projet.title}</h4>
                          <Grid container>
                               {projet.liste.map(list=>(
-                              <Grid lg={2}>
+                              <Grid item key={list.id} lg={2}>
                                    <Trellolist listId={list.id} cards={list.card} title={list.title} allowcreatecard={list.allowcreatecard}/>
                               </Grid>
                               ))}
-                              <Grid lg={4}>
+                              <Grid item  lg={4}>
                               </Grid>
                          </Grid>
                     </div>
