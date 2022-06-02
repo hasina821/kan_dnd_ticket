@@ -90,7 +90,6 @@ const Trellolist = ({listId,title,allowcreatecard,cards}) =>{
           setShowform(false)
           
      } 
-
      return(
           <Fragment>
                <Droppable droppableId={String(listId)}>

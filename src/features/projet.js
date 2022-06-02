@@ -1,41 +1,39 @@
 import {createSlice} from "@reduxjs/toolkit"
 
-const liste=[
-     {id:1,title:"À faire",allowcreatecard:true,card:[
-          {id:0,description:"description1"},
-          {id:1,description:"description2"},
-          {id:2,description:"description3"}
+const initialState=[
+     {id:`list-${0}`,title:"À faire",allowcreatecard:true,cards:[
+          {id:`card-${0}`,description:"description1"},
+          {id:`card-${1}`,description:"description2"},
+          {id:`card-${2}`,description:"description3"}
      ]},
-     {id:2,title:"En cours",allowcreatecard:false,card:[
-          {id:3,description:"desc1"},
-          {id:4,description:"desc2"},
-          {id:5,description:"desc3"}
+     {id:`list-${1}`,title:"En cours",allowcreatecard:false,cards:[
+          {id:`card-${3}`,description:"desc1"},
+          {id:`card-${4}`,description:"desc2"},
+          {id:`card-${5}`,description:"desc3"}
      ]},
-     {id:3,title:"Terminé",allowcreatecard:false,card:[
-          {id:6,description:"description1"},
-          {id:7,description:"description2"},
+     {id:`list-${2}`,title:"Terminé",allowcreatecard:false,cards:[
+          {id:`card-${6}`,description:"description1"},
+          {id:`card-${7}`,description:"description2"},
      ]},
-     {id:4,title:"Collaboration",allowcreatecard:false,card:[
-          {id:8,description:"desc1"},
-          {id:9,description:"desc2"},
-          {id:10,description:"desc3"}
+     {id:`list-${3}`,title:"Collaboration",allowcreatecard:false,cards:[
+          {id:`card-${8}`,description:"desc1"},
+          {id:`card-${9}`,description:"desc2"},
+          {id:`card-${10}`,description:"desc3"}
      ]}
-
 ]
 
 const projetSlice = createSlice({
      name:'projet',
-     initialState:{
-          title:'title of the project',
-          liste:liste,
-     },
+     initialState,
      reducers:{
           addCard:(draft,action)=>{
                const newCard={
                     id:action.payload.id,
                     description:action.payload.description
                }
+
                draft.liste[0].card.push(newCard);
+
           },
           deleteCard:(draft,action)=>{
           },
@@ -44,18 +42,20 @@ const projetSlice = createSlice({
                     droppableIdStart,
                     droppableIdEnd,
                     droppableIndexEnd,
-                    droppableIndexStart
+                    droppableIndexStart,
+                    draggableId
                }=action.payload;
                //dans un même liste
                // in the same list
                if (droppableIdStart === droppableIdEnd) {
-                    const list = draft.liste[droppableIdStart];
-                    console.log(typeof list.card);
-                    const card = list.card.splice(droppableIndexStart, 1);
 
-                    list.card.splice(droppableIndexEnd, 0, ...card);
-                    return { ...draft, [droppableIdStart]: list };
+                    const list = draft.find(list=>droppableIdStart);
+                    const card = list.cards.splice(droppableIndexStart, 1);
+                    list.cards.splice(droppableIndexEnd, 0, ...card);
+                   
+                    return draft;
                }
+               
 
                ///in a another list4
                 // other list
