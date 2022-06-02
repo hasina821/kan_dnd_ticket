@@ -6,6 +6,10 @@ html {
 body {
   margin: 0;
   height: 100vh;
+  background-image: url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/1920x1920/429104d8c05d4d50ece90d9e636d9c74/photo-1646605381573-e3a846cf6be8.jpg');
+  background-size:cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
 }
 

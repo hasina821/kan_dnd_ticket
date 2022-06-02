@@ -2,18 +2,19 @@ import React,{Fragment,useState} from "react"
 import {makeStyles} from "@mui/styles"
 import Trellocard from "./TrelloCard"
 import styled from "@emotion/styled"
-import { Button } from "@mui/material"
+import { Button,Typography,Grid} from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
-import {Grid} from "@mui/material"
 import ClearIcon from '@mui/icons-material/Clear';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Droppable } from "react-beautiful-dnd"
 import {addCard} from "../features/projet"
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import SaveIcon from '@mui/icons-material/Save';
+
 
 const AddCardButton = styled(Button)({
      background: '#ebecf0',
-     width:'100%',
+     width:'80%',
      marginBottom:12,
      border: 0,
      borderRadius: 3,
@@ -37,12 +38,22 @@ const PushcardButton = styled(Button)({
      textTransform:'lowercase'
    });
 
+   const ColumnTitle = styled(Typography)({
+     color: '#172b4d',
+     fontFamily: '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif',    
+     fontSize: '14px',
+     fontWeight: '700',
+     lineHeight: '20px',
+     marginBottom:'4%'
+   })
+
 const useStyle=makeStyles({
      container:{
           background:'#ebecf0',
           width:300,
           borderRadius:3,
-          padding:8
+          padding:8,
+          marginLeft:'4%'
      },
      input:{
           borderRadius:3,
@@ -90,7 +101,6 @@ const Trellolist = ({listId,title,allowcreatecard,cards}) =>{
           setShowform(false)
           
      } 
-
      return(
           <Fragment>
                <Droppable droppableId={String(listId)}>
@@ -100,17 +110,31 @@ const Trellolist = ({listId,title,allowcreatecard,cards}) =>{
                          className={style.container}
                          ref={provided.innerRef}
                          >
-                              <h4>{title}</h4>
+                              <Grid container>
+                                   <Grid item xs={11} lg={11}>
+                                        <ColumnTitle>{title}</ColumnTitle>
+                                   </Grid>
+                                   <Grid item xs={1} lg={1}>
+                                        <MoreHorizIcon sx={{cursor:'pointer'}}/>
+                                   </Grid>
+                              </Grid>
                               {cards.map((card,index)=>(
                                    <Trellocard key={card.id} card={card} index={index} id={card.id}/>
                               ))}
                               {allowcreatecard&&(
                                    <div key={title}>
                                         {!(showform) &&(
-                                        <AddCardButton onClick = {Handleshowform}>
-                                             <AddIcon/>
-                                             {"  "}ajouter une carte
-                                        </AddCardButton>
+                                        <Grid container>
+                                             <Grid xs={10} lg={10}>
+                                                  <AddCardButton onClick = {Handleshowform}>
+                                                       <AddIcon/>
+                                                       {"  "}ajouter une carte
+                                                  </AddCardButton>
+                                             </Grid>
+                                             <Grid xs={1} lg={1}>
+                                                  <SaveIcon/>
+                                             </Grid>
+                                        </Grid>
                                         )}
                                         {showform &&(
                                         <>
@@ -133,8 +157,8 @@ const Trellolist = ({listId,title,allowcreatecard,cards}) =>{
                                              </Grid>  
                                              <Grid item xs={4}>
                                              </Grid> 
-                                             <Grid item xs={1}>
-                                                  <More/>
+                                             <Grid item xs={1} bgColor="red">
+                                                  
                                              </Grid>
                                         </Grid>
                                         </>

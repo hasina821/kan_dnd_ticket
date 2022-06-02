@@ -6,12 +6,11 @@ import { DragDropContext } from "react-beautiful-dnd"
 import {useSelector,useDispatch} from "react-redux"
 import { moveCard } from "../../features/projet"
 
-
 export default function Home(){
      const dispatch=useDispatch()
      const projet=useSelector(state=>state.projet);
      const onDragEnd = (result) =>{
-          const { destination, source, draggableId, type } = result;
+          const { destination, source, draggableId} = result;
            
           if (!destination) {
                  return;
@@ -31,14 +30,14 @@ export default function Home(){
                <DragDropContext onDragEnd={onDragEnd}>
                     <div>
                          <Navbar/>
-                         <h4>{projet.title}</h4>
+                         <h1>{projet.title}</h1>
                          <Grid container>
-                              {projet.liste.map(list=>(
+                              {projet.map(list=>(
                               <Grid item key={list.id} lg={2}>
-                                   <Trellolist listId={list.id} cards={list.card} title={list.title} allowcreatecard={list.allowcreatecard}/>
+                                   <Trellolist listId={list.id} cards={list.cards} title={list.title} allowcreatecard={list.allowcreatecard}/>
                               </Grid>
                               ))}
-                              <Grid item  lg={4}>
+                              <Grid item  lg={2}>
                               </Grid>
                          </Grid>
                     </div>
