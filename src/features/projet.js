@@ -1,16 +1,25 @@
 import {createSlice} from "@reduxjs/toolkit"
 
 const initialState=[
+<<<<<<< HEAD
      {id:`list-${0}`,title:"Entrée",allowcreatecard:true,cards:[
+=======
+     {id:`list-${0}`,title:"À faire",allowcreatecard:true,cards:[
+>>>>>>> 69dbbacbe4fb5fdd8f1fd9a5ab8892e27a25bf47
           {id:`card-${0}`,description:"description1"},
           {id:`card-${1}`,description:"description2"},
           {id:`card-${2}`,description:"description3"}
      ]},
+<<<<<<< HEAD
      {id:`list-${1}`,title:"À faire",allowcreatecard:false,cards:[
+=======
+     {id:`list-${1}`,title:"En cours",allowcreatecard:false,cards:[
+>>>>>>> 69dbbacbe4fb5fdd8f1fd9a5ab8892e27a25bf47
           {id:`card-${3}`,description:"desc1"},
           {id:`card-${4}`,description:"desc2"},
           {id:`card-${5}`,description:"desc3"}
      ]},
+<<<<<<< HEAD
      {id:`list-${2}`,title:"En cours",allowcreatecard:false,cards:[
           {id:`card-${6}`,description:"description1"},
           {id:`card-${7}`,description:"description2"},
@@ -24,6 +33,16 @@ const initialState=[
           {id:`card-${11}`,description:"desc1"},
           {id:`card-${12}`,description:"desc2"},
           {id:`card-${13}`,description:"desc3"}
+=======
+     {id:`list-${2}`,title:"Terminé",allowcreatecard:false,cards:[
+          {id:`card-${6}`,description:"description1"},
+          {id:`card-${7}`,description:"description2"},
+     ]},
+     {id:`list-${3}`,title:"Collaboration",allowcreatecard:false,cards:[
+          {id:`card-${8}`,description:"desc1"},
+          {id:`card-${9}`,description:"desc2"},
+          {id:`card-${10}`,description:"desc3"}
+>>>>>>> 69dbbacbe4fb5fdd8f1fd9a5ab8892e27a25bf47
      ]}
 ]
 
